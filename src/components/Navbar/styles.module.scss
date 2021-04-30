@@ -1,0 +1,11 @@
+.navbarContainer {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+
+    img {
+        max-width: 300px;
+        max-height: 250px;
+    }
+}

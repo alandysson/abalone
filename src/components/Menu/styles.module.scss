@@ -1,0 +1,16 @@
+.menuContainer {
+   border-bottom: 1px solid #dedede;
+   
+   .menuItems{
+      display: flex;
+      min-height: 4vh;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+
+      p {
+         margin-right: 10px;
+         margin-left: 3px;
+      }
+   }
+}

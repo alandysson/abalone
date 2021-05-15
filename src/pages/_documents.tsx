@@ -1,10 +1,11 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
 export default class MyDocument extends Document {
-   render(){
-      return(
+   render() {
+      return (
          <Html>
-            <Head></Head>
+            <Head>
+            </Head>
             <body>
                <Main />
                <NextScript />

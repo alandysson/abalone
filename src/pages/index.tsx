@@ -1,8 +1,12 @@
+import {useContext} from "react";
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from "next/image";
+
 import { api } from '../services/api'
 import styles from './home.module.scss'
+import MainContext from "../context/MainContext";
+
 
 type Item = {
    id: number,

@@ -1,0 +1,21 @@
+.carrinhoContainer {
+   padding: 2rem 4rem;
+
+   section {
+      padding: 1rem 0;
+   }
+
+   ul {
+      list-style: none;
+
+      li {
+         display: flex;
+         padding: 1rem;
+         align-items: center;
+      }
+   }
+
+   .itemDescription {
+      margin-left: 1rem;
+   }
+}

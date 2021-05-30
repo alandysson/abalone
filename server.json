@@ -5,35 +5,40 @@
          "title": "Brinco de prata",
          "thumbnail": "https://graph.meucatalogo.app/uploads/5ff3d99e4f19ba00073f8225/jaQSbJrdT-cbdbbfbdabed.jpg/medium",
          "categoria": "brinco",
-         "valor": 12
+         "valor": 12,
+         "qtd": 0
       },
       {
          "id": 2,
          "title": "Brinco de ouro",
          "thumbnail": "https://graph.meucatalogo.app/uploads/5ff3d99e4f19ba00073f8225/jaQSbJrdT-cbdbbfbdabed.jpg/medium",
          "categoria": "brinco",
-         "valor": 14
+         "valor": 14,
+         "qtd": 0
       },
       {
          "id": 3,
          "title": "Brinco de diamante",
          "thumbnail": "https://graph.meucatalogo.app/uploads/5ff3d99e4f19ba00073f8225/jaQSbJrdT-cbdbbfbdabed.jpg/medium",
          "categoria": "brinco",
-         "valor": 200
+         "valor": 200,
+         "qtd": 0
       },
       {
          "id": 4,
          "title": "Brinco de dente",
          "thumbnail": "https://graph.meucatalogo.app/uploads/5ff3d99e4f19ba00073f8225/jaQSbJrdT-cbdbbfbdabed.jpg/medium",
          "categoria": "brinco",
-         "valor": 12
+         "valor": 12,
+         "qtd": 0
       },
       {
          "id": 5,
          "title": "Brinco de dente",
          "thumbnail": "https://graph.meucatalogo.app/uploads/5ff3d99e4f19ba00073f8225/jaQSbJrdT-cbdbbfbdabed.jpg/medium",
          "categoria": "brinco",
-         "valor": 12
+         "valor": 12,
+         "qtd": 0
       }
    ]
 }

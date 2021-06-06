@@ -1,16 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineShoppingCart } from "react-icons/ai"
 import Link from "next/link";
 import styles from "./styles.module.scss";
 import MainContext from "../../context/MainContext";
 
 export default function Menu() {
-   const { totalProduct } = useContext(MainContext);
-   const [age, setAge] = useState('');
-
-   const handleChange = (event) => {
-      setAge(event.target.value);
-   };
+   const { totalProduct, filterCategory, category } = useContext(MainContext);
 
    return (
       <div className={styles.menuContainer}>
@@ -22,13 +17,13 @@ export default function Menu() {
             <div className={styles.menuRight}>
                <select
                   className={styles.select}
-                  defaultValue={age}
-                  onChange={handleChange}
+                  defaultValue={category}
+                  onChange={filterCategory}
                >
-                  <option >Categorias</option>
-                  <option value={10}>Brincos</option>
-                  <option value={20}>Pulseiras</option>
-                  <option value={30}>Colares</option>
+                  <option value={""}>Categorias</option>
+                  <option value={"brinco"}>Brincos</option>
+                  <option value={"pulseira"}>Pulseiras</option>
+                  <option value={"colar"}>Colares</option>
                </select>
                <Link href="/carrinho">
                   <AiOutlineShoppingCart

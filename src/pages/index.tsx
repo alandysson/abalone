@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from "next/image";
@@ -22,7 +22,30 @@ type HomeProps = {
 }
 
 export default function Home({ items }: HomeProps) {
-   const { cart } = useContext(MainContext);
+   const { addCart, category } = useContext(MainContext);
+
+   function renderItem(item) {
+      return (
+         <li key={item.id}>
+            <span>
+               <Image
+                  width={120}
+                  height={120}
+                  src={item.thumbnail}
+                  alt={item.title}
+                  objectFit="cover"
+               />
+            </span>
+
+            <div className={styles.itemDetails}>
+               <h3>{item.title}</h3>
+               <p>Preço: R${String(item.preco)}</p>
+               <button onClick={() => addCart(item)}>Adicionar ao pedido</button>
+            </div>
+         </li>
+      );
+   }
+
    return (
       <div className={styles.container}>
          <Head>
@@ -32,27 +55,16 @@ export default function Home({ items }: HomeProps) {
          <main className={styles.homePage}>
             <section>
                <ul>
-                  {items.map(item => {
-                     return (
-                        <li key={item.id}>
-                           <span>
-                              <Image
-                                 width={120}
-                                 height={120}
-                                 src={item.thumbnail}
-                                 alt={item.title}
-                                 objectFit="cover"
-                              />
-                           </span>
-
-                           <div className={styles.itemDetails}>
-                              <h3>{item.title}</h3>
-                              <p>Preço: R${String(item.preco)}</p>
-                              <button onClick={() => cart(item)}>Adicionar ao pedido</button>
-                           </div>
-                        </li>
-                     );
-                  })}
+                  {category === "" ? (
+                     items.map(item => {
+                        return renderItem(item);
+                     })
+                  ) :
+                     items.filter(filterItems => filterItems.categoria === category)
+                        .map(item => {
+                           return renderItem(item);
+                        })
+                  }
                </ul>
             </section>
          </main>

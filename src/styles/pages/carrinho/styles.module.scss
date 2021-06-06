@@ -11,11 +11,45 @@
       li {
          display: flex;
          padding: 1rem;
-         align-items: center;
+         margin-bottom: 1rem;
+
+         background: #fff;
+         max-width: 40%;
+         
+         border: 1px solid rgba(0,0,0,0.2);
+         border-radius: 8px;
+      }
+
+      .total {
+         font-size: 1.5rem;
+         padding: 1rem;
+         font-weight: 500;
       }
    }
 
    .itemDescription {
       margin-left: 1rem;
+      justify-content: space-between;
+      display: flex;
+      flex-direction: column;
+
+      .adicionarMais {
+         display: flex;
+         flex-direction: row;
+         justify-content: space-between;
+         align-items: center;
+
+         max-width: 130px;
+
+         button {
+            background: none;
+            border: none;
+            cursor: pointer;
+
+            &:hover {
+               color: cornflowerblue;
+            }
+         }
+      }
    }
 }

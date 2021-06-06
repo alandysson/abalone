@@ -1,4 +1,5 @@
-import { createContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 type Item = {
    id: number,
@@ -10,9 +11,14 @@ type Item = {
 }
 
 type ContextProps = {
-   cart: (value) => void;
+   category: string;
+   addCart: (value) => void;
+   adicionarMais: (value) => void;
+   removeProduto: (value, id) => void;
+   filterCategory: (value) => void;
    totalProduct: number;
-   totalItems: Item[];
+   totalValue: number;
+   item: Item[];
 }
 
 type MainContextProviderProps = {
@@ -24,17 +30,86 @@ const MainContext = createContext({} as ContextProps);
 export const MainProvider = ({ children }: MainContextProviderProps) => {
    const [item, setItem] = useState([]);
    const [totalProduct, setTotalProduct] = useState(0);
+   const [totalValue, setTotalValue] = useState(0);
+   const [category, setCategory] = useState("");
 
-   function cart(value: Item) {
+   async function addCart(value: Item) {
       value.qtd = value.qtd + 1
+      setTotalValue(totalValue + value.preco);
       setItem(oldArray => [...oldArray, value]);
       setTotalProduct(totalProduct + 1);
    }
 
+
+   function filterCategory(event) {
+      setCategory(event.target.value);
+   }
+
+   async function adicionarMais(value: Item) {
+      value.qtd = value.qtd + 1
+      setTotalValue(totalValue + value.preco);
+      setTotalProduct(totalProduct + 1);
+   }
+
+   function removeProduto(value: Item, id) {
+      value.qtd = value.qtd - 1
+      setTotalValue(totalValue - value.preco);
+      setTotalProduct(totalProduct - 1);
+
+      if (value.id === id) {
+         const remover = totalItems.splice(totalItems.indexOf([value], 1))
+      }
+   }
+
    const totalItems = [...item];
 
+   // useEffect(() => {
+   //    async function loadStoraged() {
+   //       const storagedItens = await AsyncStorage.getItem("@storage:items");
+   //       const storageTotal = await AsyncStorage.getItem("@storage:total");
+   //       const storageProducts = await AsyncStorage.getItem("@storage:products");
+
+   //       if (storagedItens || storageTotal || storageProducts) {
+   //          setItem(JSON.parse(storagedItens));
+   //          setTotalValue(JSON.parse(storageTotal));
+   //          setTotalProduct(JSON.parse(storageTotal));
+   //       }
+   //    }
+
+   //    loadStoraged()
+   // }, [])
+
+
+
+   function removeDuplicado() {
+      for (var i = 0; i <= totalItems.length; i++) {
+         var qtdItems = [];
+         var elemento = totalItems[i];
+         var index = totalItems.indexOf(elemento);
+         while (index != -1) {
+            qtdItems.push(index);
+            index = totalItems.indexOf(elemento, index + 1);
+         }
+
+         if (qtdItems.length > 1) {
+            totalItems.splice(totalItems.indexOf(totalItems[i]), 1);
+         }
+      }
+   }
+
+   removeDuplicado();
+
    return (
-      <MainContext.Provider value={{ cart, totalProduct, totalItems }}>
+      <MainContext.Provider value={{
+         addCart,
+         adicionarMais,
+         category,
+         filterCategory,
+         totalProduct,
+         item,
+         totalValue,
+         removeProduto
+      }}>
          {children}
       </MainContext.Provider>
    )

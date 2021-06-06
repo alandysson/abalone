@@ -27,7 +27,9 @@
             border: none;
 
             font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
             outline: none;
+            cursor: pointer;
          }
 
          span {
@@ -39,6 +41,10 @@
             background: purple;
             color: #fff;
             border-radius: 50%;
+         }
+
+         svg {
+            cursor: pointer;
          }
       }
    }

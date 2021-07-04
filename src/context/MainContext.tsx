@@ -1,12 +1,12 @@
 import { createContext, useState, ReactNode, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage"
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type Item = {
    id: number,
-   title: string,
-   thumbnail: string,
+   nome: string,
+   // thumbnail: string,
    categoria: string,
-   preco: number
+   valor: number
    qtd: number
 }
 
@@ -35,7 +35,7 @@ export const MainProvider = ({ children }: MainContextProviderProps) => {
 
    async function addCart(value: Item) {
       value.qtd = value.qtd + 1
-      setTotalValue(totalValue + value.preco);
+      setTotalValue(totalValue + value.valor);
       setItem(oldArray => [...oldArray, value]);
       setTotalProduct(totalProduct + 1);
    }
@@ -47,13 +47,13 @@ export const MainProvider = ({ children }: MainContextProviderProps) => {
 
    async function adicionarMais(value: Item) {
       value.qtd = value.qtd + 1
-      setTotalValue(totalValue + value.preco);
+      setTotalValue(totalValue + value.valor);
       setTotalProduct(totalProduct + 1);
    }
 
    function removeProduto(value: Item, id) {
       value.qtd = value.qtd - 1
-      setTotalValue(totalValue - value.preco);
+      setTotalValue(totalValue - value.valor);
       setTotalProduct(totalProduct - 1);
 
       if (value.id === id) {
@@ -62,6 +62,8 @@ export const MainProvider = ({ children }: MainContextProviderProps) => {
    }
 
    const totalItems = [...item];
+
+   // const asyncItems = AsyncStorage.setItem("@storage:items", JSON.stringify(totalItems));
 
    // useEffect(() => {
    //    async function loadStoraged() {

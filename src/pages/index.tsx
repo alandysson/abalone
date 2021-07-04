@@ -10,10 +10,10 @@ import MainContext from "../context/MainContext";
 
 type Item = {
    id: number,
-   title: string,
-   thumbnail: string,
+   nome: string,
+   // thumbnail: string,
    categoria: string,
-   preco: number,
+   valor: number,
    qtd: number,
 }
 
@@ -28,18 +28,18 @@ export default function Home({ items }: HomeProps) {
       return (
          <li key={item.id}>
             <span>
-               <Image
+               {/* <Image
                   width={120}
                   height={120}
                   src={item.thumbnail}
                   alt={item.title}
                   objectFit="cover"
-               />
+               /> */}
             </span>
 
             <div className={styles.itemDetails}>
-               <h3>{item.title}</h3>
-               <p>Preço: R${String(item.preco)}</p>
+               <h3>{item.nome}</h3>
+               <p>Preço: R${String(item.valor)}</p>
                <button onClick={() => addCart(item)}>Adicionar ao pedido</button>
             </div>
          </li>
@@ -73,7 +73,7 @@ export default function Home({ items }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-   const { data } = await api.get("items", {
+   const { data } = await api.get("buscar", {
       params: {
          _limit: 12,
          _order: 'desc'
@@ -83,10 +83,10 @@ export const getStaticProps: GetStaticProps = async () => {
    const items = data.map(item => {
       return {
          id: item.id,
-         title: item.title,
-         thumbnail: item.thumbnail,
+         nome: item.nome,
+         // thumbnail: item.thumbnail,
          categoria: item.categoria,
-         preco: item.valor,
+         valor: item.valor,
          qtd: item.qtd
       }
    })

@@ -30,18 +30,18 @@ export function Carrinho() {
                            <>
                               <li key={item.id}>
                                  <span>
-                                    <Image
+                                    {/* <Image
                                        width={120}
                                        height={120}
                                        src={item.thumbnail}
                                        alt={item.title}
                                        objectFit="cover"
-                                    />
+                                    /> */}
                                  </span>
 
                                  <div className={styles.itemDescription}>
-                                    <h3>{item.title}</h3>
-                                    <p>Total: R$ {String(item.preco * item.qtd)}</p>
+                                    <h3>{item.nome}</h3>
+                                    <p>Total: R$ {String(item.valor * item.qtd)}</p>
                                     <div className={styles.adicionarMais}>
                                        <button>
                                           <AiOutlineMinus onClick={() => removeProduto(item, item.id)} />

@@ -34,6 +34,7 @@ export const MainProvider = ({ children }: MainContextProviderProps) => {
    const [category, setCategory] = useState("");
 
    async function addCart(value: Item) {
+      value.qtd = 0;
       value.qtd = value.qtd + 1
       setTotalValue(totalValue + value.valor);
       setItem(oldArray => [...oldArray, value]);

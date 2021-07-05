@@ -3,6 +3,7 @@ import Head from "next/head";
 import Navbar from '../components/Navbar'
 import { MainProvider } from '../context/MainContext'
 import '../styles/globals.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function MyApp({ Component, pageProps }) {
    return (
@@ -15,7 +16,7 @@ function MyApp({ Component, pageProps }) {
             <main>
                <Navbar />
                <Menu />
-               <div style={{ background: "ghostwhite", minHeight: "100vh" }}>
+               <div style={{ background: "ghostwhite", height: "200vh" }}>
                   <Component {...pageProps} />
                </div>
             </main>

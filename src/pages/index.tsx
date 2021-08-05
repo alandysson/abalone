@@ -31,19 +31,19 @@ export default function Home({ items }: HomeProps) {
    const [show, setShow] = useState(false);
    const [id, setId] = useState(null);
 
-   async function deletarProduto(id){
+   const token = true;
+
+   async function deletarProduto(id) {
       console.log(id)
-      try{
+      try {
          const response = await axios({
             method: 'delete',
             url: `http://localhost:8080/api/excluir/${id}`
          })
-
-         console.log(response)
-         if(response.status == 204){
+         if (response.status == 204) {
             window.location.reload();
          }
-      } catch(error){
+      } catch (error) {
          console.log(error);
       }
    }
@@ -51,20 +51,23 @@ export default function Home({ items }: HomeProps) {
    function renderItem(item) {
       return (
          <li key={item.id}>
-            <div className={styles.buttons}>
-               <Link href={`/produto/${item.id}`}>
-                  <button>Editar</button>
-               </Link>
-               <button onClick={() => {
-                  setShow(true);
-                  setId(item.id);
-               }}
-               >
-                  Excluir
-               </button>
-            </div>
+            {token ? (
+               <div className={styles.buttons}>
+                  <Link href={`/produto/${item.id}`}>
+                     <button>Editar</button>
+                  </Link>
+                  <button onClick={() => {
+                     setShow(true);
+                     setId(item.id);
+                  }}
+                  >
+                     Excluir
+                  </button>
+               </div>
+            ) : ""}
 
-            
+
+
             <span>
                <Image
                   width={120}
@@ -81,19 +84,19 @@ export default function Home({ items }: HomeProps) {
             </div>
 
             <Modal centered show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-               <Modal.Title>Warning !</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Você deseja excluir o produto?!</Modal.Body>
-            <Modal.Footer>
-               <Button variant="primary" onClick={handleClose}>
-                  Não
-               </Button>
-               <Button variant="danger" onClick={() => deletarProduto(id)}>
-                  Excluir
-               </Button>
-            </Modal.Footer>
-         </Modal>
+               <Modal.Header closeButton>
+                  <Modal.Title>Warning !</Modal.Title>
+               </Modal.Header>
+               <Modal.Body>Você deseja excluir o produto?!</Modal.Body>
+               <Modal.Footer>
+                  <Button variant="primary" onClick={handleClose}>
+                     Não
+                  </Button>
+                  <Button variant="danger" onClick={() => deletarProduto(id)}>
+                     Excluir
+                  </Button>
+               </Modal.Footer>
+            </Modal>
          </li>
       );
    }
@@ -108,7 +111,7 @@ export default function Home({ items }: HomeProps) {
 
          <main className={styles.homePage}>
             <section>
-            <a href="/admin/cadastrar">Cadastrar novo produto</a>
+               {token && <a className={styles.link} href="/admin/cadastrar">Cadastrar novo produto</a>}
                <ul>
                   {category === "" ? (
                      items.map(item => {
@@ -135,7 +138,7 @@ export const getStaticProps: GetStaticProps = async () => {
       }
    });
 
-   const items = data.map(item => {
+   const items = data.content.map(item => {
       return {
          id: item.id,
          nome: item.nome,

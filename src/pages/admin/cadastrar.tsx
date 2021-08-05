@@ -1,8 +1,8 @@
+import { api } from "../../services/api";
 import axios from "axios";
 import { useState } from "react";
-import { Form, Toast } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import styles from "../../styles/pages/admin/cadastrar.module.scss";
-import Head from "next/head";
 
 type Produto = {
    nome: string,
@@ -18,10 +18,6 @@ type CadastrarProps = {
 
 export default function Cadastrar({ }: CadastrarProps) {
    const [produto, setProduto] = useState({});
-   const [showA, setShowA] = useState(false);
-   const [message, setMessage] = useState(null);
-
-   const toggleShowA = () => setShowA(!showA);
 
    const handleChange = (e) => {
       setProduto({ ...produto, [e.target.id]: e.target.value.trim() })
@@ -37,12 +33,7 @@ export default function Cadastrar({ }: CadastrarProps) {
             url: 'http://localhost:8080/api/cadastrar',
             data: produto
          })
-         if(response.status == 201){
-            setShowA(true);
-            setMessage("Produto cadastrado com sucesso!")
-        } else {
-            setMessage("Algo deu errado, tente novamente!")
-        }
+         console.log(response);
       } catch (error) {
          console.log(error)
       }
@@ -50,10 +41,7 @@ export default function Cadastrar({ }: CadastrarProps) {
 
    return (
       <div className={styles.cadastrarContainer}>
-         <Head>
-            <title>Cadastrar Produto</title>
-         </Head>
-         <Form onSubmit={handleSubmit}>
+         <form onSubmit={handleSubmit}>
             <Form.Group controlId="nome">
                <Form.Label>Nome: </Form.Label>
                <Form.Control
@@ -82,6 +70,7 @@ export default function Cadastrar({ }: CadastrarProps) {
                   required
                />
             </Form.Group>
+
             <Form.Group controlId="valor">
                <Form.Label>Valor por produto: </Form.Label>
                <Form.Control
@@ -91,39 +80,35 @@ export default function Cadastrar({ }: CadastrarProps) {
                   required
                />
             </Form.Group>
+
             <Form.Group controlId="qtd">
                <Form.Label>Quantidade: </Form.Label>
                <Form.Control
                   name="qtd"
                   type="number"
                   onChange={handleChange}
-                  
+                  required
                />
             </Form.Group>
 
             <button type="submit">
                Cadastrar
             </button>
+         </form>
 
-            <Toast
-               show={showA}
-               onClose={toggleShowA}
-               style={{
-                  position: 'absolute',
-                  top: 5,
-                  right: 50,
-               }}
-            >
-               <Toast.Header>
-                  <img
-                     className="rounded mr-2"
-                     alt=""
-                  />
-                  <strong className="mr-auto">Abalone </strong>
-               </Toast.Header>
-               <Toast.Body>{message}</Toast.Body>
-            </Toast>
-         </Form>
+         {/* {closeModal && (
+               <Modal centered show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                     <Modal.Title>Erro !</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>As senhas precisam ser iguais!</Modal.Body>
+                  <Modal.Footer>
+                     <Button variant="info" onClick={handleClose}>
+                        Fechar
+                     </Button>
+                  </Modal.Footer>
+               </Modal>
+            )} */}
       </div>
    );
 }

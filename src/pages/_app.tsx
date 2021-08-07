@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
             <main>
                <Navbar />
                <Menu />
-               <div style={{ background: "ghostwhite", height: "200vh" }}>
+               <div style={{ background: "ghostwhite", height: "100vh" }}>
                   <Component {...pageProps} />
                </div>
             </main>

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { api } from '../services/api'
 import MainContext from "../context/MainContext";
 
@@ -10,7 +10,7 @@ import { deletarProduto } from "../services/utils";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './home.module.scss';
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Pagination } from "react-bootstrap";
 
 type Item = {
    id: number,
@@ -21,11 +21,19 @@ type Item = {
    qtd: number,
 }
 
-type HomeProps = {
-   items: Item[];
+type Page = {
+   first: boolean;
+   last: boolean;
+   totalPages: number;
+   number: number;
 }
 
-export default function Home({ items }: HomeProps) {
+type HomeProps = {
+   items: Item[];
+   page: Page;
+}
+
+export default function Home({ items, page }: HomeProps) {
    const { addCart, category } = useContext(MainContext);
    const [show, setShow] = useState(false);
    const [id, setId] = useState(null);
@@ -73,7 +81,7 @@ export default function Home({ items }: HomeProps) {
 
          <main className={styles.homePage}>
             <section>
-            <a href="/admin/cadastrar">Cadastrar novo produto</a>
+               <a href="/admin/cadastrar">Cadastrar novo produto</a>
                <ul>
                   {category === "" ? (
                      items.map(item => {
@@ -87,6 +95,54 @@ export default function Home({ items }: HomeProps) {
                   }
                </ul>
             </section>
+            {/* <Pagination className="pagination">
+               <Pagination.First onClick={(e) => requestData(e, buscar, 1)} />
+               <Pagination.Prev
+                  disabled={page.current === 1 ? true : false}
+                  onClick={(e) => {
+                     requestData(e, page.current - 1)
+                     window.scroll(0, 0)
+                  }}
+               />
+               {page.current >= 3 ? <Pagination.Ellipsis disabled={true} /> : null}
+               {page.current >= 2 ? (
+                  <Pagination.Item
+                     onClick={(e) => {
+                        requestData(e, page.current - 1)
+                        window.scroll(0, 0)
+                     }}
+                  >
+                     {page.current - 1}
+                  </Pagination.Item>
+               ) : null}
+               <Pagination.Item active>{page.current}</Pagination.Item>
+               {page.total - page.current >= 1 ? (
+                  <Pagination.Item
+                     onClick={(e) => {
+                        requestData(e, page.current + 1)
+                        window.scroll(0, 0)
+                     }}
+                  >
+                     {page.current + 1}
+                  </Pagination.Item>
+               ) : null}
+               {page.total - page.current >= 2 ? (
+                  <Pagination.Ellipsis disabled={true} />
+               ) : null}
+               <Pagination.Next
+                  disabled={page.current === page.total ? true : false}
+                  onClick={(e) => {
+                     requestData(e, page.current + 1)
+                     window.scroll(0, 0)
+                  }}
+               />
+               <Pagination.Last
+                  onClick={(e) => {
+                     requestData(e, page.total)
+                     window.scroll(0, 0)
+                  }}
+               />
+            </Pagination> */}
          </main>
 
          <Modal centered show={show} onHide={handleClose}>
@@ -107,15 +163,28 @@ export default function Home({ items }: HomeProps) {
    )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-   const { data } = await api.get("buscar", {
-      params: {
-         _limit: 11,
-         _order: 'desc'
-      }
-   });
+export const getStaticPaths: GetStaticPaths = async () => {
+   const { data } = await api.get("buscar");
 
-   const items = data.map(item => {
+   const paths = data.content.map(episode => {
+      return {
+         params: {
+            slug: episode.nome
+         }
+      }
+   })
+
+   return {
+      paths,
+      fallback: 'blocking'
+   }
+}
+
+
+export const getStaticProps: GetStaticProps = async () => {
+   const { data } = await api.get("buscar?page=1");
+
+   const items = data.content.map(item => {
       return {
          id: item.id,
          nome: item.nome,
@@ -126,9 +195,17 @@ export const getStaticProps: GetStaticProps = async () => {
       }
    })
 
+   const page = {
+      first: data.first,
+      last: data.last,
+      totalPages: data.totalPages,
+      current: data.number,
+   };
+
    return {
       props: {
-         items
+         items,
+         page
       },
       revalidate: 60 * 60 * 8,
    }

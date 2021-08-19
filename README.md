@@ -16,12 +16,12 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-This project have two moments,
+## This project have two moments
 
-## Admin
+### Admin
 
 the user authenticated have some extras features, how: add new item, edit item and delete. For this, you need create a simple api or use [this](https://github.com/alandysson/api-java) 
 
-## User
+### User
 
 can use the application for see your items and buy him (For this, you can create a component for sell items)

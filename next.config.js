@@ -1,5 +1,5 @@
 module.exports = {
    images: {
-      domains: ['graph.meucatalogo.app']
+      domains: ['127.0.0.1:8000']
    }
 }

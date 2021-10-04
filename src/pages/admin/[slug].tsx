@@ -38,6 +38,7 @@ export default function Produto({ item }: ItemProps) {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
+      console.log(produto);
       try {
          const response = await axios({
             method: 'put',
@@ -142,12 +143,18 @@ export default function Produto({ item }: ItemProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-   const { data } = await api.get("buscar");
+   const { data } = await api.get("buscar", {
+      params: {
+         _limit: 2,
+         _sort: 'published_at',
+         _order: 'desc'
+      }
+   });
 
-   const paths = data.content.map(item => {
+   const paths = data.content.map(episode => {
       return {
          params: {
-            slug: item.nome
+            slug: episode.nome
          }
       }
    })

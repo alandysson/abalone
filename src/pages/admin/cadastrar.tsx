@@ -37,12 +37,12 @@ export default function Cadastrar({ }: CadastrarProps) {
             url: 'http://localhost:8080/api/cadastrar',
             data: produto
          })
-         if(response.status == 201){
+         if (response.status == 201) {
             setShowA(true);
             setMessage("Produto cadastrado com sucesso!")
-        } else {
+         } else {
             setMessage("Algo deu errado, tente novamente!")
-        }
+         }
       } catch (error) {
          console.log(error)
       }
@@ -69,6 +69,7 @@ export default function Cadastrar({ }: CadastrarProps) {
                <input
                   name="thumbnail"
                   type="file"
+                  accept="image/*"
                   onChange={handleChange}
                />
             </Form.Group> */}
@@ -97,7 +98,7 @@ export default function Cadastrar({ }: CadastrarProps) {
                   name="qtd"
                   type="number"
                   onChange={handleChange}
-                  
+
                />
             </Form.Group>
 

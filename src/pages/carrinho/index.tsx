@@ -1,10 +1,10 @@
 import { useContext, useState, useEffect } from "react";
 
 import Image from "next/image"
-import styles from "../styles/pages/carrinho/styles.module.scss";
+import styles from "../../styles/pages/carrinho/styles.module.scss";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai"
 
-import MainContext from "../context/MainContext";
+import MainContext from "../../context/MainContext";
 
 export function Carrinho() {
    const {

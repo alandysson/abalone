@@ -1,6 +1,7 @@
 import styles from "../../styles/pages/admin/login.module.scss";
 import { Form } from "react-bootstrap";
 import { useState } from "react";
+import axios from "axios";
 
 
 export default function Login() {
@@ -8,7 +9,16 @@ export default function Login() {
 
    const handleSubmit = async (event) => {
       event.preventDefault()
-      console.log(user)
+      try {
+         const response = await axios({
+            method: 'post',
+            url: 'http://localhost:8080/api/login',
+            data: user
+         })
+         console.log(response)
+      } catch (error) {
+         console.log(error)
+      }
    }
 
    const handleChange = (event) => {
@@ -20,14 +30,16 @@ export default function Login() {
          <form onSubmit={handleSubmit}>
             <label>Email</label>
             <input
-               id="usr_email"
+               id="email"
                type="email"
+               required
                onChange={handleChange}
             />
             <label>Senha</label>
             <input
-               id="usr_pass"
+               id="password"
                type="password"
+               required
                onChange={handleChange}
             />
             <div className={styles.buttonRow}>

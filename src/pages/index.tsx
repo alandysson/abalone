@@ -9,18 +9,10 @@ import Head from 'next/head'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './home.module.scss';
-
-type Item = {
-   id: number,
-   nome: string,
-   thumbnail: string,
-   categoria: string,
-   valor: number,
-   qtd: number,
-}
+import { ItemType } from "../types";
 
 type HomeProps = {
-   items: Item[];
+   items: ItemType[];
 }
 
 export default function Home({ items }: HomeProps) {
@@ -56,11 +48,11 @@ export default function Home({ items }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-   const { data } = await api.get(`buscar`);
-   const items = data.content.map(item => {
+   const { data } = await api.get(`items`);
+   const items = data.map(item => {
       return {
          id: item.id,
-         nome: item.nome,
+         nome: item.title,
          // thumbnail: item.img,
          categoria: item.categoria,
          valor: item.valor,

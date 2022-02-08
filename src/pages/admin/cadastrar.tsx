@@ -3,17 +3,10 @@ import { useState } from "react";
 import { Form, Toast } from "react-bootstrap";
 import styles from "../../styles/pages/admin/cadastrar.module.scss";
 import Head from "next/head";
-
-type Produto = {
-   nome: string,
-   thumbnail: string;
-   categoria: string;
-   valor: number;
-   qtd: number;
-}
+import { ItemType } from "../../types";
 
 type CadastrarProps = {
-   produto: Produto[];
+   produto: ItemType[];
 }
 
 export default function Cadastrar({ }: CadastrarProps) {

@@ -6,27 +6,14 @@ import styles from "../../styles/pages/admin/cadastrar.module.scss";
 import axios from "axios";
 import { useState } from "react";
 import { Toast } from "react-bootstrap";
-
-type Item = {
-   id: number,
-   nome: string,
-   // thumbnail: string,
-   categoria: string,
-   valor: number,
-   qtd: number,
-}
+import { ItemType } from "../../types";
 
 type ItemProps = {
-   item: Item
+   item: ItemType
 }
 
 export default function Produto({ item }: ItemProps) {
-   const [produto, setProduto] = useState({
-      nome: item.nome,
-      categoria: item.categoria,
-      valor: item.valor,
-      qtd: item.qtd
-   });
+   const [produto, setProduto] = useState<ItemType>();
    const [showA, setShowA] = useState(false);
    const [message, setMessage] = useState(null);
 

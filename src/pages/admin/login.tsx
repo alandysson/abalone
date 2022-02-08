@@ -1,11 +1,14 @@
 import styles from "../../styles/pages/admin/login.module.scss";
-import { Form } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
 
+type User = {
+   email: string;
+   password: string
+}
 
-export default function Login() {
-   const [user, setUser] = useState(null);
+export default function Login({ }: User) {
+   const [user, setUser] = useState<User>();
 
    const handleSubmit = async (event) => {
       event.preventDefault()

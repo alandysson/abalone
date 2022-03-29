@@ -1,6 +1,7 @@
 import styles from "../../styles/pages/admin/login.module.scss";
 import { useState } from "react";
 import axios from "axios";
+import { MessageAlert } from "../../components/Toast"
 
 type User = {
    email: string;
@@ -9,16 +10,25 @@ type User = {
 
 export default function Login({ }: User) {
    const [user, setUser] = useState<User>();
+   const [appearAlert, setAppearAlert] = useState<boolean>(false)
+   const [message, setMessage] = useState<string>(null)
 
    const handleSubmit = async (event) => {
       event.preventDefault()
+      setAppearAlert(false)
       try {
          const response = await axios({
             method: 'post',
             url: 'http://localhost:8080/api/login',
             data: user
          })
-         console.log(response)
+         if (response.status === 204) {
+            setAppearAlert(true)
+            setMessage("Senha ou e-mail inválido!")
+         } else {
+            setAppearAlert(true)
+            setMessage("Você está logado! Aguarde e será redirecionado")
+         }
       } catch (error) {
          console.log(error)
       }
@@ -49,6 +59,12 @@ export default function Login({ }: User) {
                <button type="submit">Entrar</button>
             </div>
          </form>
+         {appearAlert &&
+            <MessageAlert
+               Message={message}
+               show={appearAlert}
+            />
+         }
       </div>
    )
 }

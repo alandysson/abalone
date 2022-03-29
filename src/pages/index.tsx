@@ -48,11 +48,11 @@ export default function Home({ items }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-   const { data } = await api.get(`items`);
-   const items = data.map(item => {
+   const { data } = await api.get(`buscar`);
+   const items = data.content.map(item => {
       return {
          id: item.id,
-         nome: item.title,
+         nome: item.nome,
          // thumbnail: item.img,
          categoria: item.categoria,
          valor: item.valor,

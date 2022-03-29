@@ -5,7 +5,6 @@ import Head from "next/head";
 import styles from "../../styles/pages/admin/cadastrar.module.scss";
 import axios from "axios";
 import { useState } from "react";
-import { Toast } from "react-bootstrap";
 import { MessageAlert } from "../../components/Toast";
 
 type Item = {

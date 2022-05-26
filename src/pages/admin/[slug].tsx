@@ -5,19 +5,17 @@ import Head from "next/head";
 import styles from "../../styles/pages/admin/cadastrar.module.scss";
 import axios from "axios";
 import { useState } from "react";
-import { Toast } from "react-bootstrap";
 import { ItemType } from "../../types";
+import { MessageAlert } from "../../components/Toast";
 
 type ItemProps = {
    item: ItemType
 }
 
 export default function Produto({ item }: ItemProps) {
-   const [produto, setProduto] = useState<ItemType>();
-   const [showA, setShowA] = useState(false);
+   const [produto, setProduto] = useState<ItemType>(item);
+   const [appearAlert, setAppearAlert] = useState<boolean>(false);
    const [message, setMessage] = useState(null);
-
-   const toggleShowA = () => setShowA(!showA);
 
    const handleChange = (e) => {
       setProduto({ ...produto, [e.target.id]: e.target.value.trim() })
@@ -25,15 +23,15 @@ export default function Produto({ item }: ItemProps) {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
-      console.log(produto);
+      setAppearAlert(false);
       try {
          const response = await axios({
             method: 'put',
             url: `http://localhost:8080/api/alterar/${item.id}`,
             data: produto
          })
+         setAppearAlert(true);
          if (response.status == 200) {
-            setShowA(true);
             setMessage("Dados do produto alterado com sucesso!")
          } else {
             setMessage("Algo deu errado, tente novamente!")
@@ -106,25 +104,12 @@ export default function Produto({ item }: ItemProps) {
                Editar
             </button>
          </form>
-         <Toast
-            show={showA}
-            onClose={toggleShowA}
-            style={{
-               position: 'absolute',
-               top: 2,
-               right: 25,
-            }}
-         >
-            <Toast.Header>
-               <img
-
-                  className="rounded mr-2"
-                  alt=""
-               />
-               <strong className="mr-auto">Abalone </strong>
-            </Toast.Header>
-            <Toast.Body>{message}</Toast.Body>
-         </Toast>
+         {appearAlert &&
+            <MessageAlert
+               show={appearAlert}
+               Message={message}
+            />
+         }
       </div>
    );
 }

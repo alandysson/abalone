@@ -12,6 +12,7 @@ type Item = {
 
 type ContextProps = {
    category: string;
+   superUser: string;
    addCart: (value) => void;
    adicionarMais: (value) => void;
    removeProduto: (value, id) => void;
@@ -32,7 +33,17 @@ export const MainProvider = ({ children }: MainContextProviderProps) => {
    const [totalProduct, setTotalProduct] = useState(0);
    const [totalValue, setTotalValue] = useState(0);
    const [category, setCategory] = useState("");
+   const [superUser, setSuperUser] = useState<string>(null)
 
+   useEffect(() => {
+      const storageUser = async () => {
+         const dadosUser = await JSON.parse(localStorage.getItem("state"));
+         if (dadosUser) {
+            setSuperUser(dadosUser);
+         }
+      }
+      storageUser()
+   }, [])
    async function addCart(value: Item) {
       value.qtd = 0;
       value.qtd = value.qtd + 1
@@ -64,25 +75,6 @@ export const MainProvider = ({ children }: MainContextProviderProps) => {
 
    const totalItems = [...item];
 
-   // const asyncItems = AsyncStorage.setItem("@storage:items", JSON.stringify(totalItems));
-
-   // useEffect(() => {
-   //    async function loadStoraged() {
-   //       const storagedItens = await AsyncStorage.getItem("@storage:items");
-   //       const storageTotal = await AsyncStorage.getItem("@storage:total");
-   //       const storageProducts = await AsyncStorage.getItem("@storage:products");
-
-   //       if (storagedItens || storageTotal || storageProducts) {
-   //          setItem(JSON.parse(storagedItens));
-   //          setTotalValue(JSON.parse(storageTotal));
-   //          setTotalProduct(JSON.parse(storageTotal));
-   //       }
-   //    }
-
-   //    loadStoraged()
-   // }, [])
-
-
 
    function removeDuplicado() {
       for (var i = 0; i <= totalItems.length; i++) {
@@ -111,7 +103,8 @@ export const MainProvider = ({ children }: MainContextProviderProps) => {
          totalProduct,
          item,
          totalValue,
-         removeProduto
+         removeProduto,
+         superUser
       }}>
          {children}
       </MainContext.Provider>

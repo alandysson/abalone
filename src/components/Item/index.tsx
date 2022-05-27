@@ -7,7 +7,7 @@ import { deletarProduto } from "../../services/utils";
 import styles from './styles.module.scss';
 
 export function Item({ props }) {
-   const { addCart } = useContext(MainContext);
+   const { addCart, superUser } = useContext(MainContext);
 
    const [show, setShow] = useState(false);
    const [id, setId] = useState(null);
@@ -17,18 +17,20 @@ export function Item({ props }) {
    return (
       <div>
          <li key={props.id}>
-            <div className={styles.buttons}>
-               <Link href={`admin/${props.id}`}>
-                  <button>Editar</button>
-               </Link>
-               <button onClick={() => {
-                  setShow(true);
-                  setId(props.id);
-               }}
-               >
-                  Excluir
-               </button>
-            </div>
+            {superUser &&
+               <div className={styles.buttons}>
+                  <Link href={`admin/${props.id}`}>
+                     <button>Editar</button>
+                  </Link>
+                  <button onClick={() => {
+                     setShow(true);
+                     setId(props.id);
+                  }}
+                  >
+                     Excluir
+                  </button>
+               </div>
+            }
             <div className={styles.itemDetails}>
                <Link href={`produto/${props.id}`}>
                   <span>

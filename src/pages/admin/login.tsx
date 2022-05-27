@@ -26,6 +26,7 @@ export default function Login({ }: User) {
             setAppearAlert(true)
             setMessage("Senha ou e-mail inválido!")
          } else {
+            localStorage.setItem("state", JSON.stringify(response.data))
             setAppearAlert(true)
             setMessage("Você está logado! Aguarde e será redirecionado")
          }

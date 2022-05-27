@@ -16,7 +16,7 @@ type HomeProps = {
 }
 
 export default function Home({ items }: HomeProps) {
-   const { category } = useContext(MainContext);
+   const { category, superUser } = useContext(MainContext);
 
    return (
       <div className={styles.container}>
@@ -26,7 +26,7 @@ export default function Home({ items }: HomeProps) {
 
          <main className={styles.homePage}>
             <section>
-               <a href="/admin/cadastrar">Cadastrar novo produto</a>
+               {superUser && <a href="/admin/cadastrar">Cadastrar novo produto</a>}
                <ul>
                   {category === ""
                      ?

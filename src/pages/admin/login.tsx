@@ -8,7 +8,7 @@ type User = {
    password: string
 }
 
-export default function Login({ }: User) {
+export default function Login() {
    const [user, setUser] = useState<User>();
    const [appearAlert, setAppearAlert] = useState<boolean>(false)
    const [message, setMessage] = useState<string>(null)
@@ -46,6 +46,7 @@ export default function Login({ }: User) {
             <input
                id="email"
                type="email"
+               data-testid="email"
                required
                onChange={handleChange}
             />
@@ -53,19 +54,20 @@ export default function Login({ }: User) {
             <input
                id="password"
                type="password"
+               data-testid="password"
                required
                onChange={handleChange}
             />
             <div className={styles.buttonRow}>
                <button type="submit">Entrar</button>
             </div>
+            {appearAlert &&
+               <MessageAlert
+                  Message={message}
+                  show={appearAlert}
+               />
+            }
          </form>
-         {appearAlert &&
-            <MessageAlert
-               Message={message}
-               show={appearAlert}
-            />
-         }
       </div>
    )
 }

@@ -1,0 +1,35 @@
+.paginationContainer {
+   display: flex;
+
+   button {
+      border: none;
+      background: none;
+   }
+
+   a {
+      margin: 0 10px;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 1.2rem;
+      border: 1px solid;
+      padding: 5px 10px;
+      border-radius: 3px;
+
+      &:hover {
+         border: 1px solid purple;
+         color: purple;
+         text-decoration: none;
+      }
+   }
+
+   .active {
+      background-color: purple;
+      border-radius: 3px;
+      border: 1px solid #fff;
+      color: #fff;
+
+      &:hover {
+         opacity: 0.6;
+         color: #fff;
+      }
+   }
+}

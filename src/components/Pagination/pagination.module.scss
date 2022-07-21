@@ -25,14 +25,14 @@
    }
 
    .active {
-      background-color: purple;
+      background-color: #fff;
       border-radius: 3px;
-      border: 1px solid #fff;
-      color: #fff;
+      border: 1px solid #000;
+      color: #000;
 
       &:hover {
          opacity: 0.8;
-         color: #fff;
+         color: purple;
       }
    }
 }

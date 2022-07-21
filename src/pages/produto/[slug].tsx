@@ -1,120 +1,47 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { api } from "../../services/api";
-import { Form } from "react-bootstrap";
 import Head from "next/head";
-import styles from "../../styles/pages/admin/cadastrar.module.scss";
-import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { MessageAlert } from "../../components/Toast";
-
-type Item = {
-   id: number,
-   nome: string,
-   // thumbnail: string,
-   categoria: string,
-   valor: number,
-   qtd: number,
-}
+import Image from "next/image";
+import MainContext from "../../context/MainContext";
+import styles from "../../styles/pages/produto/produto.module.scss";
+import { ItemType } from "../../types";
 
 type ItemProps = {
-   item: Item
+   item: ItemType
 }
 
 export default function Produto({ item }: ItemProps) {
-   const [produto, setProduto] = useState({
-      nome: item.nome,
-      categoria: item.categoria,
-      valor: item.valor,
-      qtd: item.qtd
-   });
    const [appearAlert, setAppearAlert] = useState(false);
    const [message, setMessage] = useState(null);
-
-   const handleChange = (e) => {
-      setProduto({ ...produto, [e.target.id]: e.target.value.trim() })
-   };
-
-   const handleSubmit = async (e) => {
-      e.preventDefault();
-      setAppearAlert(false)
-      try {
-         const response = await axios({
-            method: 'put',
-            url: `http://localhost:8080/api/alterar/${item.id}`,
-            data: produto
-         })
-         setAppearAlert(true);
-         if (response.status == 200) {
-            setMessage("Dados do produto alterado com sucesso!")
-         } else {
-            setMessage("Algo deu errado, tente novamente!")
-         }
-      } catch (error) {
-         console.log(error)
-      }
-   }
-
+   const { addCart } = useContext(MainContext);
+   console.log(item)
    return (
-      <div className={styles.cadastrarContainer}>
+      <div className={styles.produtoContainer}>
          <Head>
             <title>{item.nome} | Abalone </title>
          </Head>
-         <form onSubmit={handleSubmit}>
-            <Form.Group controlId="nome">
-               <Form.Label>Nome: </Form.Label>
-               <Form.Control
-                  name="nome"
-                  type="text"
-                  onChange={handleChange}
-                  defaultValue={item.nome}
-                  required
+         <form>
+            <h2>{item.nome}</h2>
+            <span>
+               <Image
+                  width={300}
+                  height={300}
+                  src="/logo-navbar.png"
+                  alt={item.nome}
+                  objectFit="cover"
                />
-            </Form.Group>
-
-            {/* <Form.Group controlId="thumbnail">
-              <Form.Label>Imagem do produto: </Form.Label>
-              <input
-                 name="thumbnail"
-                 type="file"
-                 onChange={handleChange}
-              />
-           </Form.Group> */}
-
-            <Form.Group controlId="categoria">
-               <Form.Label>Categoria: </Form.Label>
-               <Form.Control
-                  name="categoria"
-                  type="text"
-                  onChange={handleChange}
-                  defaultValue={item.categoria}
-                  required
-               />
-            </Form.Group>
-
-            <Form.Group controlId="valor">
-               <Form.Label>Valor por produto: </Form.Label>
-               <Form.Control
-                  name="valor"
-                  type="number"
-                  onChange={handleChange}
-                  defaultValue={item.valor}
-                  required
-               />
-            </Form.Group>
-
-            <Form.Group controlId="qtd">
-               <Form.Label>Quantidade: </Form.Label>
-               <Form.Control
-                  name="qtd"
-                  type="number"
-                  defaultValue={item.qtd}
-                  onChange={handleChange}
-                  required
-               />
-            </Form.Group>
-
-            <button type="submit">
-               Editar
+            </span>
+            {/* TODO: refactor AddCart function or create a new function to add items to order */}
+            <p>Quantidade disponível: {item.qtd}</p>
+            <button disabled={item.qtd <= 0} onClick={(event) => {
+               event.preventDefault()
+               addCart(item)
+               setAppearAlert(true)
+               setMessage('Item adicionado ao carrinho!')
+            }}>
+               Adicionar ao carrinho
             </button>
          </form>
          {appearAlert &&

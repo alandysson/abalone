@@ -5,8 +5,7 @@
    margin: 0 auto;
    max-width: 920px;
    padding: 0 4rem;
-   height: 100vh;
-   
+
    section {
       padding-top: 3rem;
       margin-bottom: 1.5rem;
@@ -15,7 +14,7 @@
    ul {
       list-style: none;
       display: grid;
-      grid-template-columns: repeat(4,1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 2rem;
 
       li {
@@ -23,14 +22,16 @@
          flex-direction: column;
          align-items: center;
          background: #fff;
+         border: 1px solid rgba(0, 0, 0, 0.10);
 
          width: 280px;
          padding: 1.5rem 0.8rem;
          border-radius: 1rem;
          line-height: 32px;
+         transition: all .2s ease-in-out;
 
          span {
-            img{
+            img {
                border-radius: 8px;
             }
          }
@@ -39,18 +40,31 @@
             font-size: 1.2rem;
             font-weight: 600;
          }
+
+         &:hover {
+            transform: scale(1.05);
+         }
       }
 
       @media(max-width: 767px) {
          grid-template-columns: repeat(1, 1fr);
       }
 
-      @media (min-width: 769px) and (max-width: 1221px){
+      @media (min-width: 769px) and (max-width: 1221px) {
          grid-template-columns: repeat(3, 1fr);
       }
 
-      @media (min-width: 426px) and (max-width: 920px){
+      @media (min-width: 426px) and (max-width: 920px) {
          grid-template-columns: repeat(2, 1fr);
       }
+   }
+}
+
+.pagination {
+   display: flex;
+   justify-content: center;
+
+   .page-item.active .page-link {
+      background-color: black;
    }
 }

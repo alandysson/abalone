@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { GetStaticProps, GetStaticPaths } from 'next'
+import { useContext, useState } from "react";
+import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next'
 import { api } from '../services/api'
 import { Item } from "../components/Item";
 
@@ -20,9 +20,8 @@ type HomeProps = {
    }
 }
 
-export default function Home({ items, pageable }: HomeProps) {
+export default function HomePerPage({ items, pageable }: HomeProps) {
    const { category, superUser } = useContext(MainContext);
-   // TODO: try get HomePerPage in this component
    return (
       <div className={styles.container}>
          <Head>
@@ -55,8 +54,10 @@ export default function Home({ items, pageable }: HomeProps) {
    )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-   const { data } = await api.get(`buscar`);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+   const { params } = context
+   const { page } = params
+   const { data } = await api.get(`buscar?page=${Number(page) - 1}`);
    const pageable = {
       currentPage: data.pageable.pageNumber + 1,
       totalPages: data.totalPages,
@@ -76,6 +77,5 @@ export const getStaticProps: GetStaticProps = async () => {
          items,
          pageable
       },
-      revalidate: 60 * 60 * 8,
    }
 }

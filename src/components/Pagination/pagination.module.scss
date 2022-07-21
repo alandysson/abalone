@@ -4,9 +4,6 @@
    button {
       border: none;
       background: none;
-   }
-
-   a {
       margin: 0 10px;
       color: rgba(0, 0, 0, 0.5);
       font-size: 1.2rem;
@@ -19,6 +16,12 @@
          color: purple;
          text-decoration: none;
       }
+
+      &:disabled,
+      [disabled] {
+         opacity: 0.7;
+         cursor: not-allowed;
+      }
    }
 
    .active {
@@ -28,7 +31,7 @@
       color: #fff;
 
       &:hover {
-         opacity: 0.6;
+         opacity: 0.8;
          color: #fff;
       }
    }

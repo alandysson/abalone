@@ -1,7 +1,10 @@
 .cadastrarContainer {
-   padding: 2rem;
+   padding: 1rem;
 
-   form > div{
+   margin: 0 auto;
+   max-width: 1200px;
+
+   form>div {
       display: flex;
       flex-direction: column;
 
@@ -9,9 +12,9 @@
          max-width: 350px;
          height: 28px;
          padding-left: 0.25rem;
-         
+
          border-radius: 4px;
-         border: 1px solid rgba(0,0,0,0.25);
+         border: 1px solid rgba(0, 0, 0, 0.25);
          font-size: 0.9rem;
 
          &:focus {
@@ -30,7 +33,7 @@
       background: #fff;
 
       border-radius: 4px;
-      border: 1px solid rgba(0,0,0,0.25);
+      border: 1px solid rgba(0, 0, 0, 0.25);
 
       cursor: pointer;
 

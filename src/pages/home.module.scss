@@ -1,4 +1,17 @@
 .homePage {
+   .addNewItem {
+      position: absolute;
+      top: 270px;
+
+      a {
+         text-decoration: none;
+         color: #000;
+         border: 1px solid purple;
+         padding: 5px;
+         border-radius: 3px;
+      }
+   }
+
    display: flex;
    justify-content: center;
 

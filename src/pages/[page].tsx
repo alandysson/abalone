@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './home.module.scss';
 import { ItemType } from "../types";
 import { CustomPagination } from "../components/Pagination";
+import Link from "next/link";
 
 type HomeProps = {
    items: ItemType[];
@@ -29,8 +30,12 @@ export default function HomePerPage({ items, pageable }: HomeProps) {
          </Head>
 
          <main className={styles.homePage}>
+            {superUser &&
+               <div className={styles.addNewItem}>
+                  <Link href="/admin/cadastrar">Cadastrar novo produto</Link>
+               </div>
+            }
             <section>
-               {superUser && <a href="/admin/cadastrar">Cadastrar novo produto</a>}
                <ul>
                   {category === ""
                      ?

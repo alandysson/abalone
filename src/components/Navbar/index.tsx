@@ -1,11 +1,12 @@
+import Link from "next/link";
 import styles from "./styles.module.scss";
 
 export default function Navbar() {
    return (
       <div className={styles.navbarContainer}>
-         <a href="/">
+         <Link href="/">
             <img src="/logo-navbar.png" alt="Logo home" />
-         </a>
+         </Link>
       </div>
    );
 }

@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 
 import Image from "next/image"
 import styles from "../../styles/pages/carrinho/styles.module.scss";
@@ -9,14 +9,11 @@ import MainContext from "../../context/MainContext";
 export function Carrinho() {
    const {
       item,
-      totalProduct,
       totalValue,
       adicionarMais,
       removeProduto
    } = useContext(MainContext);
 
-   console.log(totalProduct);
-   console.log(totalValue);
    return (
       <div className={styles.carrinhoContainer}>
          <h1>Seu carrinho de compras</h1>
@@ -30,13 +27,13 @@ export function Carrinho() {
                            <>
                               <li key={item.id}>
                                  <span>
-                                    {/* <Image
+                                    <Image
                                        width={120}
                                        height={120}
-                                       src={item.thumbnail}
-                                       alt={item.title}
+                                       src="/logo-navbar.png"
+                                       alt={item.nome}
                                        objectFit="cover"
-                                    /> */}
+                                    />
                                  </span>
 
                                  <div className={styles.itemDescription}>
@@ -58,11 +55,10 @@ export function Carrinho() {
                      </>
                   )
                })}
-
-               {totalValue === 0 ? "" : (
-                  <li className={styles.total}>Total: R$ {totalValue}</li>
-               )}
             </ul>
+            {totalValue === 0 ? "" : (
+               <p className={styles.total}>Total: R$ {totalValue}</p>
+            )}
          </section>
       </div>
    );

@@ -1,5 +1,7 @@
 .carrinhoContainer {
-   padding: 2rem 4rem;
+   padding: 2rem 1rem;
+   margin: 0 auto;
+   max-width: 1200px;
 
    section {
       padding: 1rem 0;
@@ -12,19 +14,25 @@
          display: flex;
          padding: 1rem;
          margin-bottom: 1rem;
-
+         justify-content: space-around;
          background: #fff;
-         max-width: 40%;
-         
-         border: 1px solid rgba(0,0,0,0.2);
+         max-width: 50%;
+
+         border: 1px solid rgba(0, 0, 0, 0.2);
          border-radius: 8px;
       }
 
-      .total {
-         font-size: 1.5rem;
-         padding: 1rem;
-         font-weight: 500;
-      }
+   }
+
+   .total {
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      max-width: 50%;
+      border-radius: 8px;
+
+      font-size: 1.5rem;
+      padding: 1rem;
+      font-weight: 500;
    }
 
    .itemDescription {

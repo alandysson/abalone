@@ -16,7 +16,6 @@ export default function Produto({ item }: ItemProps) {
    const [appearAlert, setAppearAlert] = useState(false);
    const [message, setMessage] = useState(null);
    const { addCart } = useContext(MainContext);
-   console.log(item)
    return (
       <div className={styles.produtoContainer}>
          <Head>

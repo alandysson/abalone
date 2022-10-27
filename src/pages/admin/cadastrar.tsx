@@ -5,12 +5,8 @@ import styles from "../../styles/pages/admin/cadastrar.module.scss";
 import Head from "next/head";
 import { ItemType } from "../../types";
 
-type CadastrarProps = {
-   produto: ItemType[];
-}
-
-export default function Cadastrar({ }: CadastrarProps) {
-   const [produto, setProduto] = useState({});
+export default function Cadastrar() {
+   const [produto, setProduto] = useState<ItemType>({} as ItemType);
    const [showA, setShowA] = useState(false);
    const [message, setMessage] = useState(null);
 
@@ -19,7 +15,6 @@ export default function Cadastrar({ }: CadastrarProps) {
    const handleChange = (e) => {
       setProduto({ ...produto, [e.target.id]: e.target.value.trim() })
    };
-
    const handleSubmit = async (e) => {
       e.preventDefault();
       console.log(produto);
@@ -51,6 +46,7 @@ export default function Cadastrar({ }: CadastrarProps) {
                <Form.Label>Nome: </Form.Label>
                <Form.Control
                   name="nome"
+                  data-testid="nome"
                   type="text"
                   onChange={handleChange}
                   required
@@ -71,6 +67,7 @@ export default function Cadastrar({ }: CadastrarProps) {
                <Form.Label>Categoria: </Form.Label>
                <Form.Control
                   name="categoria"
+                  data-testid="categoria"
                   type="text"
                   onChange={handleChange}
                   required
@@ -80,6 +77,7 @@ export default function Cadastrar({ }: CadastrarProps) {
                <Form.Label>Valor por produto: </Form.Label>
                <Form.Control
                   name="valor"
+                  data-testid="valor"
                   type="number"
                   onChange={handleChange}
                   required
@@ -89,9 +87,10 @@ export default function Cadastrar({ }: CadastrarProps) {
                <Form.Label>Quantidade: </Form.Label>
                <Form.Control
                   name="qtd"
+                  data-testid="qtd"
                   type="number"
                   onChange={handleChange}
-
+                  required
                />
             </Form.Group>
 

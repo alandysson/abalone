@@ -19,7 +19,7 @@ export default function Login() {
       try {
          const response = await axios({
             method: 'post',
-            url: 'http://localhost:8080/api/login',
+            url: 'http://192.168.0.106:8080/api/login',
             data: user
          })
          if (response.status === 204) {

@@ -5,10 +5,13 @@ describe('Cadastrar.tsx', () => {
       render(<Cadastrar />)
       const inputNome = screen.getByTestId('nome')
       const button = screen.getByRole('button')
+      const inputCategoria = screen.getByTestId('categoria')
+      const inputValor = screen.getByTestId('valor')
+      const inputQtd = screen.getByTestId('qtd')
+      
       fireEvent.click(button)
       expect(inputNome).toBeRequired()
 
-      const inputCategoria = screen.getByTestId('categoria')
       fireEvent.change(inputNome, {
          target: {
             value: "Colar de ouro"
@@ -16,8 +19,6 @@ describe('Cadastrar.tsx', () => {
       })
       fireEvent.click(button)
       expect(inputCategoria).toBeRequired()
-
-      const inputValor = screen.getByTestId('valor')
       fireEvent.change(inputCategoria, {
          target: {
             value: "Colar"
@@ -26,7 +27,6 @@ describe('Cadastrar.tsx', () => {
       fireEvent.click(button)
       expect(inputValor).toBeRequired()
 
-      const inputQtd = screen.getByTestId('qtd')
       fireEvent.change(inputValor, {
          target: {
             value: "100"
@@ -34,4 +34,33 @@ describe('Cadastrar.tsx', () => {
       })
       expect(inputQtd).toBeRequired()
    });
+   it("Button should be available after fill in fields form", () => {
+      render(<Cadastrar />)
+      const inputNome = screen.getByTestId('nome')
+      const inputCategoria = screen.getByTestId('categoria')
+      const inputValor = screen.getByTestId('valor')
+      const inputQtd = screen.getByTestId('qtd')
+      const button = screen.getByRole('button')
+      fireEvent.change(inputNome, {
+         target: {
+            value: "Colar de ouro"
+         }
+      })
+      fireEvent.change(inputCategoria, {
+         target: {
+            value: "Colar"
+         }
+      })
+      fireEvent.change(inputValor, {
+         target: {
+            value: "100"
+         }
+      })
+      fireEvent.change(inputQtd, {
+         target: {
+            value: "2"
+         }
+      })
+      expect(button).not.toBeDisabled()
+   })
 });

@@ -17,23 +17,22 @@ export default function Cadastrar() {
    };
    const handleSubmit = async (e) => {
       e.preventDefault();
-      console.log(produto);
 
-      try {
-         const response = await axios({
-            method: 'post',
-            url: 'http://localhost:8080/api/cadastrar',
-            data: produto
-         })
-         if (response.status == 201) {
-            setShowA(true);
-            setMessage("Produto cadastrado com sucesso!")
-         } else {
-            setMessage("Algo deu errado, tente novamente!")
-         }
-      } catch (error) {
-         console.log(error)
-      }
+      // try {
+      //    const response = await axios({
+      //       method: 'post',
+      //       url: 'http://localhost:8080/api/cadastrar',
+      //       data: produto
+      //    })
+      //    if (response.status == 201) {
+      //       setShowA(true);
+      //       setMessage("Produto cadastrado com sucesso!")
+      //    } else {
+      //       setMessage("Algo deu errado, tente novamente!")
+      //    }
+      // } catch (error) {
+      //    console.log(error)
+      // }
    }
 
    return (
@@ -94,7 +93,7 @@ export default function Cadastrar() {
                />
             </Form.Group>
 
-            <button type="submit">
+            <button type="submit" disabled={Object.keys(produto).length !== 4}>
                Cadastrar
             </button>
 
